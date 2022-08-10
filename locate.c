@@ -71,3 +71,34 @@ char *fill_path_dir(char *path)
 			else
 				length++;
 		}
+		else
+			length++;
+	}
+	path_copy = malloc(sizeof(char) * (length + 1));
+	if (!path_copy)
+		return (NULL);
+	path_copy[0] = '\0';
+	for (i = 0; path[i]; i++)
+	{
+		if (path[i] == ':')
+		{
+			if (i == 0)
+			{
+				_strcat(path_copy, pwd);
+				_strcat(path_copy, ":");
+			}
+			else if (path[i + 1] == ':' || path[i + 1] == '\0')
+			{
+				_strcat(path_copy, ":");
+				_strcat(path_copy, pwd);
+			}
+			else
+				_strcat(path_copy, ":");
+		}
+		else
+		{
+			_strncat(path_copy, &path[i], 1);
+		}
+	}
+	return (path_copy);
+}
